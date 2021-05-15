@@ -16,3 +16,4 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
 mix.styles(['resources/css/bootstrap.css', 'resources/css/style.css'], 'public/css/main.css')
+   .css('resources/css/slick.css', 'public/css/slick.css')

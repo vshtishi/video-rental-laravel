@@ -11,6 +11,9 @@
   <!-- Bootstrap core CSS -->
 
   <link href={{ mix('/css/main.css') }} rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href={{ mix('/css/slick.css') }}/>
+				
+  
 </head>
 
 <body>
@@ -49,7 +52,41 @@
             </li>
           </ul>
         </div>
+        @auth
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a href="#" class="nav-link waves-effect" target="_blank">
+                {{ auth()->user()->name }}
+              </a>
+            </li>
+            <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" class="nav-link waves-effect"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
 
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                
+            </li>
+          </ul>
+          @else
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a href={{ route('login') }} class="nav-link waves-effect" target="_blank">
+                Login
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href={{ route('register') }} class="nav-link border border-light rounded waves-effect"
+                target="_blank">
+                Register
+              </a>
+            </li>
+          </ul>
+        @endauth
       </div>
     </nav>
     <!-- Navbar -->
@@ -65,9 +102,18 @@
       <section class="card blue-gradient wow fadeIn">
 
         <!-- Content -->
-        <div class="card-body text-white text-center py-1 px-1 my-1">
+        <div class="card-body text-white text-center py-1 px-1 my-1" id="slider">
+        <div>
            <img src="img/video_rental_banner.jpg" class="banner">
-
+           </div>
+           <div>
+           <img src="img/video_rental_banner.jpg" class="banner">
+        </div>
+        <div>
+           <img src="img/video_rental_banner.jpg" class="banner">
+           </div>
+           <div>
+           <img src="img/video_rental_banner.jpg" class="banner">
         </div>
         <!-- Content -->
       </section>
@@ -243,6 +289,28 @@
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-3.3.2.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $('#slider').slick({
+    autoplay: true,
+    autoplaySpeed: 1500,
+    dots: false,
+   arrows: false,
+   });
+  });
+  </script>
+  <script>
+  
+ $(document).ready(function(){
+  $(window).on('scroll', function () {
+    var $nav = $(".navbar.fixed-top");
+    console.log('here');
+    $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+  });
+ })
+</script>
 </body>
 
 </html>
