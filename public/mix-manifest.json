@@ -1,10 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
-<<<<<<< HEAD
     "/css/app.css": "/css/app.css",
     "/css/slick.css": "/css/slick.css",
     "/css/main.css": "/css/main.css"
-=======
-    "/css/app.css": "/css/app.css"
->>>>>>> origin/Create-Product-Page-Design
 }

@@ -14,11 +14,7 @@
                         </div>
                     @endif
 
-<<<<<<< HEAD
                     {{ __('You are logged in ') . auth()->user()->name . '!' }}
-=======
-                    {{ __('You are logged in!') }}
->>>>>>> origin/Create-Product-Page-Design
                 </div>
             </div>
         </div>

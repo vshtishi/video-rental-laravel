@@ -15,20 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-<<<<<<< HEAD
 })->name('home-page');
-=======
-});
-
-Route::get('/create', function () {
-    return view('create');
-});
->>>>>>> origin/Create-Product-Page-Design
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-<<<<<<< HEAD
 
 Route::get('/profile', function () {
     return view('user-profile');
@@ -57,5 +48,3 @@ Route::get('/categories/{category}', function () {
 Route::get('/categories/{category}/{product}', function () {
     return view('product');
 })->name('product');
-=======
->>>>>>> origin/Create-Product-Page-Design
