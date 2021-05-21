@@ -67,9 +67,15 @@
                         <a href="#" target="_blank"
                            class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
                         </a>
-                        <a href="{{ route('shopping-cart') }}" target="_blank"
-                           class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                        </a>
+                        <form action="{{ route('shopping-cart-store') }}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{ $product['id'] }}">
+                        <input type="hidden" name="name" value="{{ $product['name'] }}">
+                        <input type="hidden" name="price" value="{{ $product['price'] }}">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
+                        </button>
+                        </form>
+                    
                     </div>
                     <!--Grid column-->
                 </div>

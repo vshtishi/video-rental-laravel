@@ -30,13 +30,11 @@ Route::get('/categories', function () {
     return view('categories');
 })->name('categories');
 
-Route::get('/all-products', function () {
-    return view('all-products');
-})->name('all-products');
+Route::get('/all-products', [App\Http\Controllers\ProductsController::class, 'index'])->name('all-products');
 
-Route::get('/shopping-cart', function () {
-    return view('shopping-cart');
-})->name('shopping-cart');
+Route::get('/shopping-cart', [App\Http\Controllers\CartController::class, 'index'])->name('shopping-cart');
+Route::post('/shopping-cart', [App\Http\Controllers\CartController::class, 'store'])->name('shopping-cart-store');
+
 
 Route::get('/checkout', function () {
     return view('checkout');
