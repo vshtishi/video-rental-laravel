@@ -22,7 +22,7 @@ class CreateVideosTable extends Migration
             $table->text('description');
             $table->integer('rating');
             $table->integer('yearOfRelease');
-            $table->integer('photoURL');
+            $table->string('photoURL');
             $table->integer('rentalPrice');
             $table->timestamps();
         });
