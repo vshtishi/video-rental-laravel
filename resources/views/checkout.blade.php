@@ -1,4 +1,5 @@
 @extends('layouts.app')
+<script src="https://js.stripe.com/v3/"></script>
 @section('content')
     <div class="col-md-7 col-sm-12 p-0 box">
         <div class="card rounded-0 border-0 card2" id="paypage">
@@ -17,21 +18,16 @@
                     <br>
                 </div>
                 <label class="pay">Name on Card</label> <input type="text" name="holdername" placeholder="John Smith">
-                <div class="row">
-                    <div class="col-8 col-md-6"><label class="pay">Card Number</label> <input type="text" name="cardno"
-                                                                                              id="cr_no"
-                                                                                              placeholder="0000-0000-0000-0000"
-                                                                                              minlength="19"
-                                                                                              maxlength="19"></div>
-                    <div class="col-4 col-md-6"><label class="pay">CVC</label> <input type="password" name="cvcpwd"
-                                                                                      placeholder="&#9679;&#9679;&#9679;"
-                                                                                      class="placeicon" minlength="3"
-                                                                                      maxlength="3"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12"><label class="pay">Expiration Date</label></div>
-                    <div class="col-md-12"><input type="text" name="exp" id="exp" placeholder="MM/YY" minlength="5"
-                                                  maxlength="5"></div>
+                <div class="form-group">
+                    <label for="card-element">
+                        Credit or debit card
+                    </label>
+                    <div id="card-element">
+                        <!-- A Stripe Element will be inserted here. -->
+                    </div>
+
+                    <!-- Used to display Element errors. -->
+                    <div id="card-errors" role="alert"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6"><input type="submit" value="PAY &nbsp; &#xf178;"
@@ -42,3 +38,47 @@
         </div>
     </div>
 @endsection
+<script>
+    var style = {
+        base: {
+            // Add your base input styles here. For example:
+            fontSize: '16px',
+            color: '#32325d',
+        },
+    };
+
+    // Create an instance of the card Element.
+    var card = elements.create('card', {style: style});
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                // Inform the customer that there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server.
+                stripeTokenHandler(result.token);
+            }
+        });
+    });
+
+    function stripeTokenHandler(token) {
+        // Insert the token ID into the form so it gets submitted to the server
+        var form = document.getElementById('payment-form');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', token.id);
+        form.appendChild(hiddenInput);
+
+        // Submit the form
+        form.submit();
+    }
+</script>

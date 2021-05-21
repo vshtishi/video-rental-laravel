@@ -38,11 +38,10 @@ Route::get('/all-products', [App\Http\Controllers\ProductsController::class, 'in
 
 Route::get('/shopping-cart', [App\Http\Controllers\CartController::class, 'index'])->name('shopping-cart');
 Route::post('/shopping-cart', [App\Http\Controllers\CartController::class, 'store'])->name('shopping-cart-store');
+Route::delete('/shopping-cart/{product}', [App\Http\Controllers\CartController::class, 'destroy'])->name('shopping-cart-destroy');
 
 
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
+Route::get('/checkout',[App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
 
 Route::get('/categories/{category}', function () {
     return view('category');

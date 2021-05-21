@@ -43,17 +43,21 @@
 
                     <td class="col-sm-1 col-md-1 text-center"><strong>{{ '$' . $item->model->rentalPrice }}</strong></td>
                     <td class="col-sm-1 col-md-1">
-                        <button type="button" class="btn btn-danger">
-                            <span class="fa fa-remove"></span> Remove
-                        </button>
+                        <form action="{{ route('shopping-cart-destroy', $item->rowId) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button type="submit" class="btn btn-outline-danger">
+                                <span class="fa fa-remove"></span> Remove
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
             <!--Total Price-->
             <tr>
                 <td></td>
-                <td><h3>Total </h3></td>
-                <td class="text-right"><h3><strong>$0.000&nbsp;&nbsp;&nbsp; </strong></h3></td>
+                <td><h4>Total (Tax included): </h4></td>
+                <td class="text-right"><h3><strong>{{ Cart::total() }}</strong></h3></td>
             </tr>
             <!--Buton section-->
             <tr>
