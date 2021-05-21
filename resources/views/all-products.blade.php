@@ -11,400 +11,78 @@
                     <h1 class="h1 text-left mb-5">All Videos</h1>
                 </div>
                 <!-- Heading & Description -->
+                @foreach($products as $product)
 
-                <!--Grid row-->
-                <div class="row wow fadeIn">
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1-half">
-                            <div class="view overlay">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="banner">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 1</strong>
-                        </h3>
-                        <!--DETAILS BUTTON-->
-                        <p class="grey-text">
-                            <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal1">Details
-                                <i class="fas fa-info-circle ml-1"></i>
-                            </a>
-                        </p>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal1" role="dialog">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div>
-                                        <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
-                                        <h3 class="modal-title h3 ml-3 mt-5">Video 1</h3>
-                                        <hr>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6>Details:</h6>
-                                        <p> description description description description description description
-                                            description description description description description </p>
-                                        <p>description description description description description </p>
-                                        <ul>
-                                            <li>Year</li>
-                                            <li>Actors</li>
-                                            <li>....</li>
-                                            <li>....</li>
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>
+                    @if( $loop->first or $loop->iteration  <= 6 )
+                        <div class="row mt-3 wow fadeIn">
+                            <!--Grid column-->
+                            <div class="col-lg-5 col-xl-4 mb-4">
+                                <!--Featured image-->
+                                <div class="view overlay rounded z-depth-1">
+                                    <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid"
+                                         alt="">
+                                    <a href="#" target="_blank">
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
                                 </div>
                             </div>
-                        </div>
-                        <!--DETAILS BUTTON-->
-                        <a href="#" target="_blank"
-                           class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
-                        </a>
-                        <form action="{{ route('shopping-cart-store') }}" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="id" value="{{ $product['id'] }}">
-                        <input type="hidden" name="name" value="{{ $product['name'] }}">
-                        <input type="hidden" name="price" value="{{ $product['price'] }}">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                        </button>
-                        </form>
-                    
-                    </div>
-                    <!--Grid column-->
-                </div>
-                <!--Grid row-->
-                <hr class="mb-5">
-                <!--Grid row-->
-                <div class="row mt-3 wow fadeIn">
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid"
-                                 alt="">
-                            <a href="#" target="_blank">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 2</strong>
-                        </h3>
-                        <!--DETAILS BUTTON-->
-                        <p class="grey-text">
-                            <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal2">Details
-                                <i class="fas fa-info-circle ml-1"></i>
-                            </a>
-                        </p>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal2" role="dialog">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div>
-                                        <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
-                                        <h3 class="modal-title h3 ml-3 mt-5">Video 2</h3>
-                                        <hr>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6>Details:</h6>
-                                        <p> description description description description description description
-                                            description description description description description </p>
-                                        <p>description description description description description </p>
-                                        <ul>
-                                            <li>Year</li>
-                                            <li>Actors</li>
-                                            <li>....</li>
-                                            <li>....</li>
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <!--Grid column-->
+                            <!--Grid column-->
+                            <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+                                <h3 class="mb-3 font-weight-bold dark-grey-text">
+                                    <strong>{{ $product->title }}</strong>
+                                </h3>
+                                <!--DETAILS BUTTON-->
+                                <p class="grey-text">
+                                    <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal2">Details
+                                        <i class="fas fa-info-circle ml-1"></i>
+                                    </a>
+                                </p>
+                                <!-- Modal -->
+                                <div class="modal fade" id="modal2" role="dialog">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div>
+                                                <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
+                                                <h3 class="modal-title h3 ml-3 mt-5">{{ $product->title }}</h3>
+                                                <hr>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h6>Details:</h6>
+                                                <p>{{ $product->description }} </p>
+                                                <ul>
+                                                    <li><strong>Year Of Release: </strong>{{ $product->yearOfRelease }}</li>
+                                                    <li><strong>Runtime: </strong>{{ $product->runtime }}</li>
+                                                    <li><strong>Rating: </strong>{{ $product->rating }}</li>
+                                                    <li><strong>Rental Price:</strong>{{ $product->rentalPrice }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <a href={{ $product->trailerURL }} target="_blank"
+                                   class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
+                                </a>
+                                <form action="{{ route('shopping-cart-store') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                    <input type="hidden" name="name" value="{{ $product->title }}">
+                                    <input type="hidden" name="price" value="{{ $product->rentalPrice }}">
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
+                                    </button>
+                                </form>
                             </div>
+                            <!--Grid column-->
                         </div>
-                        <!--DETAILS BUTTON-->
-                        <a href="#" target="_blank"
-                           class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
-                        </a>
+                        <!--Grid row-->
+                        <hr class="mb-5">
+        @endif
+        @endforeach
 
-                        <a href="#" target="_blank"
-                           class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                        </a>
-                    </div>
-                    <!--Grid column-->
-                </div>
-                <!--Grid row-->
-                <hr class="mb-5">
-                <!--Grid row-->
-                <div class="row wow fadeIn">
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid" alt="">
-                            <a href="#" target="_blank">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 3</strong>
-                        </h3>
-                        <!--DETAILS BUTTON-->
-                        <p class="grey-text">
-                            <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal3">Details
-                                <i class="fas fa-info-circle ml-1"></i>
-                            </a></p>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal3" role="dialog">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div>
-                                        <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
-                                        <h3 class="modal-title h3 ml-3 mt-5">Video 3</h3>
-                                        <hr>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6>Details:</h6>
-                                        <p> description description description description description description
-                                            description description description description description </p>
-                                        <p>description description description description description </p>
-                                        <ul>
-                                            <li>Year</li>
-                                            <li>Actors</li>
-                                            <li>....</li>
-                                            <li>....</li>
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--DETAILS BUTTON-->
-                        <a href="#" target="_blank"
-                           class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
-                        </a>
-
-                        <a href="#" target="_blank"
-                           class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                        </a>
-                    </div>
-                    <!--Grid column-->
-                </div>
-                <!--Grid row-->
-                <hr class="mb-5">
-                <!--Grid row-->
-                <div class="row mt-3 wow fadeIn">
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid"
-                                 alt="">
-                            <a href="#" target="_blank">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 4</strong>
-                        </h3>
-                        <!--DETAILS BUTTON-->
-                        <p class="grey-text">
-                            <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal4">Details
-                                <i class="fas fa-info-circle ml-1"></i>
-                            </a>
-                        </p>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal4" role="dialog">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div>
-                                        <button type="button" class="close mr-2 " data-dismiss="modal">&times;</button>
-                                        <h3 class="modal-title h3 ml-3 mt-5">Video 4</h3>
-                                        <hr>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6>Details:</h6>
-                                        <p> description description description description description description
-                                            description description description description description </p>
-                                        <ul>
-                                            <li>Year</li>
-                                            <li>Actors</li>
-                                            <li>....</li>
-                                            <li>....</li>
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--DETAILS BUTTON-->
-                        <a href="#" target="_blank"
-                           class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
-                        </a>
-
-                        <a href="#" target="_blank"
-                           class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                        </a>
-                    </div>
-                    <!--Grid column-->
-                </div>
-                <!--Grid row-->
-                <hr class="mb-5">
-                <!--Grid row-->
-                <div class="row mt-3 wow fadeIn">
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid"
-                                 alt="">
-                            <a href="#" target="_blank">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 5</strong>
-                        </h3>
-                        <!--DETAILS BUTTON-->
-                        <p class="grey-text">
-                            <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal5">Details
-                                <i class="fas fa-info-circle ml-1"></i>
-                            </a></p>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal5" role="dialog">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div>
-                                        <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
-                                        <h3 class="modal-title h3 ml-3 mt-5">Video 5</h3>
-                                        <hr>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6>Details:</h6>
-                                        <p> description description description description description description
-                                            description description description description description </p>
-                                        <p>description description description description description </p>
-                                        <ul>
-                                            <li>Year</li>
-                                            <li>Actors</li>
-                                            <li>....</li>
-                                            <li>....</li>
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--DETAILS BUTTON-->
-                        <a href="#" target="_blank"
-                           class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
-                        </a>
-                        <a href="#" target="_blank"
-                           class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                        </a>
-                    </div>
-                    <!--Grid column-->
-                </div>
-                <!--Grid row-->
-                <hr class="mb-5">
-                <!--Grid row-->
-                <div class="row mt-3 wow fadeIn">
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid"
-                                 alt="">
-                            <a href="#" target="_blank">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 6</strong>
-                        </h3>
-                        <!--DETAILS BUTTON-->
-                        <p class="grey-text">
-                            <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal6">Details
-                                <i class="fas fa-info-circle ml-1"></i>
-                            </a></p>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal6" role="dialog">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div>
-                                        <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
-                                        <h3 class="modal-title h3 ml-3 mt-5">Video 6</h3>
-                                        <hr>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6>Details:</h6>
-                                        <p> description description description description description description
-                                            description description description description description </p>
-                                        <p>description description description description description </p>
-                                        <ul>
-                                            <li>Year</li>
-                                            <li>Actors</li>
-                                            <li>....</li>
-                                            <li>....</li>
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--DETAILS BUTTON-->
-                        <a href="#" target="_blank"
-                           class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
-                        </a>
-                        <a href="#" target="_blank"
-                           class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                        </a>
-                    </div>
-                    <!--Grid column-->
-                </div>
-                <!--Grid row-->
-                <hr class="mb-5">
-                <!--Pagination-->
                 <nav class="d-flex justify-content-center wow fadeIn mt-5">
                     <ul class="pagination pg-blue">
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 
@@ -9,8 +10,8 @@ class ProductsController extends Controller
 {
     public function index(){
 
-        $product = array('id' => 1, 'name' => 'test', 'price' => 500);
+        $products = Video::all();
 
-        return view('all-products', compact('product'));
+        return view('all-products', compact('products'));
     }
 }

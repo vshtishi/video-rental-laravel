@@ -35,9 +35,9 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Models\Videos');
+        Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Models\Video');
 
-        return redirect()->route('shopping-cart')->with('success_message', 'Successfully added to cart');
+        return redirect()->route('shopping-cart')->with('success_message', 'Successfully added to cart!');
     }
 
     /**
