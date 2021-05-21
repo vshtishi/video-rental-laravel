@@ -26,6 +26,10 @@ Route::get('/profile', function () {
     return view('user-profile');
 })->name('profile');
 
+Route::get('/create', function () {
+    return view('create');
+})->name('create');
+
 Route::get('/categories', function () {
     return view('categories');
 })->name('categories');
