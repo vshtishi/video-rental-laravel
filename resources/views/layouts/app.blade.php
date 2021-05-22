@@ -15,7 +15,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href={{ mix('/css/main.css') }} rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href={{ mix('/css/slick.css') }}/>
+    <link rel="stylesheet" type="text/css" href={{ mix('/css/slick.css') }}>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
@@ -71,6 +71,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link waves-effect" target="_blank">
+                        <a href="{{ route('profile') }}" class="nav-link waves-effect" target="_blank">
                             {{ auth()->user()->name }}
                         </a>
                     </li>

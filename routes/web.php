@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,12 +29,10 @@ Route::group(['prefix' => 'admin'], function () {
 Auth::routes();
 
 
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile-update');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/profile', function () {
-    return view('user-profile');
-})->name('profile');
 
 Route::get('/create', function () {
     return view('create');
@@ -38,6 +41,7 @@ Route::get('/create', function () {
 Route::get('/categories', function () {
     return view('categories');
 })->name('categories');
+
 
 Route::get('/all-products', [App\Http\Controllers\ProductsController::class, 'index'])->name('all-products');
 
@@ -49,7 +53,6 @@ Route::delete('/shopping-cart/{product}', [App\Http\Controllers\CartController::
 Route::get('/checkout',[App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout',[App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout-store');
 Route::get('/thankyou',[App\Http\Controllers\ConfirmationController::class, 'index'])->name('confirmation');
-
 
 
 Route::get('/categories/{category}', function () {
