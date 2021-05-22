@@ -42,6 +42,10 @@ Route::delete('/shopping-cart/{product}', [App\Http\Controllers\CartController::
 
 
 Route::get('/checkout',[App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout',[App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout-store');
+Route::get('/thankyou',[App\Http\Controllers\ConfirmationController::class, 'index'])->name('confirmation');
+
+
 
 Route::get('/categories/{category}', function () {
     return view('category');
