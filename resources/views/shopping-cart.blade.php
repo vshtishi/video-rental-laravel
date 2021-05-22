@@ -68,11 +68,20 @@
                     </a>
                 </td>
                 <td></td>
-                <td><a href="{{ route('checkout') }}">
+                <td>
+                    @auth
+                    <a href="{{ route('checkout') }}">
                         <button type="button" class="btn btn-success">
                             <span>Checkout <i class="fa fa-arrow-right"></i></span>
                         </button>
                     </a>
+                    @else
+                        <a href="{{ route('login') }}">
+                            <button type="button" class="btn btn-success">
+                                <span>Checkout <i class="fa fa-arrow-right"></i></span>
+                            </button>
+                        </a>
+                    @endauth
                 </td>
             </tr>
             </tbody>

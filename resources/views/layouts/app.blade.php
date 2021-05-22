@@ -65,6 +65,11 @@
             @auth
                 <ul class="navbar-nav nav-flex-icons">
                     <li class="nav-item">
+                        <a href="{{ route('shopping-cart') }}" class="nav-link waves-effect" target="_blank">
+                            Cart
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link waves-effect" target="_blank">
                             {{ auth()->user()->name }}
                         </a>
@@ -84,6 +89,11 @@
                 </ul>
             @else
                 <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item">
+                        <a href="{{ route('shopping-cart') }}" class="nav-link waves-effect" target="_blank">
+                            Cart
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href={{ route('login') }} class="nav-link waves-effect target="_blank">
                         Login
