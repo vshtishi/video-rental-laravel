@@ -10,18 +10,11 @@
 
                 <!-- Content -->
                 <div class="card-body text-white text-center py-1 px-1 my-1" id="slider">
-                    <div>
-                        <img src="{{ asset('img/video_rental_banner.jpg') }}" class="banner">
-                    </div>
-                    <div>
-                        <img src="{{ asset('img/video_rental_banner.jpg') }}" class="banner">
-                    </div>
-                    <div>
-                        <img src="{{ asset('img/video_rental_banner.jpg') }}" class="banner">
-                    </div>
-                    <div>
-                        <img src="{{ asset('img/video_rental_banner.jpg') }}" class="banner">
-                    </div>
+                    @foreach($products as $product)
+                        <div>
+                            <img src="{{ asset('img/'.$product->photoURL) }}" class="banner">
+                        </div>
+                    @endforeach
                 </div>
                     <!-- Content -->
             </section>
@@ -43,146 +36,77 @@
                 </div>
                 <!-- Heading & Description -->
 
-                <!--Grid row-->
-                <div class="row wow fadeIn">
+                @foreach($products as $product)
+                    <!--Grid row-->
+                    <div class="row wow fadeIn">
 
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1-half">
-                            <div class="view overlay">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid"
+                        <div class="col-lg-5 col-xl-4 mb-4">
+                            <!--Featured image-->
+                            <div class="view overlay rounded z-depth-1">
+                                <img src="{{ asset('img/'.$product->photoURL) }}" class="banner"
                                      alt="">
+                                <a href="#" target="_blank">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
                             </div>
                         </div>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 1</strong>
-                        </h3>
-                        <p class="grey-text">Lorem Ipsum</p>
-                        <a href="#" target="_blank"
-                           class="btn btn-primary btn-md">Start tutorial
-                            <i class="fas fa-play ml-2"></i>
-                        </a>
-                    </div>
-                    <!--Grid column-->
-
-                </div>
-                <!--Grid row-->
-
-                <hr class="mb-5">
-
-                <!--Grid row-->
-                <div class="row mt-3 wow fadeIn">
-
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid"
-                                 alt="">
-                            <a href="#" target="_blank">
-                                <div class="mask rgba-white-slight"></div>
+                        <!--Grid column-->
+                        <!--Grid column-->
+                        <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+                            <h3 class="mb-3 font-weight-bold dark-grey-text">
+                                <strong>{{ $product->title }}</strong>
+                            </h3>
+                            <!--DETAILS BUTTON-->
+                            <p class="grey-text">
+                                <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="{{ '#modal'.$loop->iteration }}">Details
+                                    <i class="fas fa-info-circle ml-1"></i>
+                                </a>
+                            </p>
+                            <!-- Modal -->
+                            <div class="modal fade" id="{{ 'modal'.$loop->iteration }}" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div>
+                                            <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
+                                            <h3 class="modal-title h3 ml-3 mt-5">{{ $product->title }}</h3>
+                                            <hr>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6>Details:</h6>
+                                            <p>{{ $product->description }} </p>
+                                            <ul>
+                                                <li><strong>Year Of Release: </strong>{{ $product->yearOfRelease }}</li>
+                                                <li><strong>Runtime: </strong>{{ $product->runtime }}</li>
+                                                <li><strong>Rating: </strong>{{ $product->rating }}</li>
+                                                <li><strong>Rental Price: </strong>{{ $product->rentalPrice }}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href={{ $product->trailerURL }} target="_blank"
+                               class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
                             </a>
+                            <form action="{{ route('shopping-cart-store') }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                <input type="hidden" name="name" value="{{ $product->title }}">
+                                <input type="hidden" name="price" value="{{ $product->rentalPrice }}"><br>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
+                                </button>
+                            </form>
                         </div>
-                    </div>
-                    <!--Grid column-->
+                        <!--Grid column-->
 
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 2</strong>
-                        </h3>
-                        <p class="grey-text">Lorem Ipsum</p>
-                        <a href="#" target="_blank"
-                           class="btn btn-primary btn-md">Start tutorial
-                            <i class="fas fa-play ml-2"></i>
-                        </a>
                     </div>
-                    <!--Grid column-->
-
-                </div>
-                <!--Grid row-->
+                    <!--Grid row-->
+                    @endforeach
 
                 <hr class="mb-5">
-
-                <!--Grid row-->
-                <div class="row wow fadeIn">
-
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid" alt="">
-                            <a href="#" target="_blank">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-weight-bold dark-grey-text">
-                            <strong>Sample Video 3</strong>
-                        </h3>
-                        <p class="grey-text">Lorem Ipsum...</p>
-                        <a href="#" target="_blank" class="btn btn-primary btn-md">Start
-                            tutorial
-                            <i class="fas fa-play ml-2"></i>
-                        </a>
-                    </div>
-                    <!--Grid column-->
-
-                </div>
-                <!--Grid row-->
-
-                <hr class="mb-5">
-
-                <!--Pagination-->
-                <nav class="d-flex justify-content-center wow fadeIn">
-                    <ul class="pagination pg-blue">
-
-                        <!--Arrow left-->
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
-                        </li>
-
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!--Pagination-->
-
             </section>
             <!--Section: Cards-->
 

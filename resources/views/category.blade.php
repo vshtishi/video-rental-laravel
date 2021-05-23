@@ -4,35 +4,16 @@
         <!-- Heading & Description -->
         <div class="wow fadeIn">
             <!--Section heading-->
-            <h1 class="h1 text-center mb-5 mt-5">Action</h1>
+            <h1 class="h1 text-center mb-5 mt-5">{{ $category[0]->name }}</h1>
             <section>
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                            <h3><a href="{{ route('product', ['action', 'action-1']) }}" class="nav-link"> Action 1 </a></h3>
-                        </div>
-                        <div class="col-lg-4">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                            <h3><a href="#" class="nav-link">Action 2 </a></h3>
-                        </div>
-                        <div class="col-lg-4">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                            <h3><a href="#" class="nav-link"> Action 3 </a></h3>
-                        </div>
-                        <div class="col-lg-4">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                            <h3><a href="#" class="nav-link"> Action 4</a></h3>
-                        </div>
-                        <div class="col-lg-4">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                            <h3><a href="#" class="nav-link"> Action 5 </a></h3>
-                        </div>
-                        <div class="col-lg-4">
-                            <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                            <h3><a href="#" class="nav-link"> Action 6 </a></h3>
-                        </div>
-
+                        @foreach($products as $product)
+                            <div class="col-lg-4">
+                                <img src="{{ asset('img/'.$product->video->photoURL) }}" class="img-thumbnail">
+                                <h3><a href="{{ route('product', ['category' => $category[0]->name, 'product' => $product->video->title]) }}" class="nav-link">{{ $product->video->title }} </a></h3>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </section>

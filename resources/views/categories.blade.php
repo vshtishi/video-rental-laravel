@@ -9,42 +9,12 @@
                 <section>
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['adventure']) }}" class="nav-link"> Adventure </a></h3>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['comedy']) }}" class="nav-link"> Comedy</a></h3>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['horror']) }}" class="nav-link"> Horror </a></h3>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['movies']) }}" class="nav-link">Movies </a></h3>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['action']) }}" class="nav-link"> Action </a></h3>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['documentary']) }}" class="nav-link"> Documentary </a></h3>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['family-and-kids']) }}" class="nav-link">Family & Kids </a></h3>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['drama']) }}" class="nav-link"> Drama </a></h3>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-thumbnail">
-                                <h3><a href="{{ route('category', ['anime']) }}" class="nav-link"> Anime </a></h3>
-                            </div>
+                            @foreach($categories as $category)
+                                <div class="col-lg-4">
+                                    <img src="{{ asset('img/'.$category->photoURL) }}" class="img-thumbnail">
+                                    <h3><a href="{{ route('category', [$category->name]) }}" class="nav-link"> {{ $category->name }} </a></h3>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </section>

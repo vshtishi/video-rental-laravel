@@ -159,6 +159,21 @@
                                                                 class="fas fa-play ml-2"></i>
                                                         </a>
                                                     </p>
+                                                    @if($purchase->expiration > 0)
+                                                    <p><a href="{{ route('movie') }}" target="_blank"
+                                                          class="btn btn-primary btn-md">Watch <i
+                                                                class="fas fa-play ml-2"></i>
+                                                        </a>
+                                                    </p>
+                                                    <p class="alert alert-info">Video expires in <strong>{{ $purchase->expiration }}</strong> days!</p>
+                                                    @else
+                                                        <p><a href="#" target="_blank"
+                                                              class="btn btn-secondary btn-md disabled">Watch <i
+                                                                    class="fas fa-play ml-2"></i>
+                                                            </a>
+                                                        </p>
+                                                        <p class="alert alert-warning">Unfortunately, your rental has expired!</p>
+                                                        @endif
                                                 </div>
                                             </div>
                                         @endforeach
