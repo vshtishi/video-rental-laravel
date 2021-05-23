@@ -11,7 +11,7 @@
                         <div class="row">
                             @foreach($categories as $category)
                                 <div class="col-lg-4">
-                                    <img src="{{ asset('img/'.$category->photoURL) }}" class="img-thumbnail">
+                                    <img src="{{ asset('img/'.$category->photoURL) }}" class="img-thumbnail" style="width: 600px; height: 160px">
                                     <h3><a href="{{ route('category', [$category->name]) }}" class="nav-link"> {{ $category->name }} </a></h3>
                                 </div>
                             @endforeach
