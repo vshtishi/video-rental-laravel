@@ -79,7 +79,7 @@
                                                 <li><strong>Year Of Release: </strong>{{ $product->yearOfRelease }}</li>
                                                 <li><strong>Runtime: </strong>{{ $product->runtime }}</li>
                                                 <li><strong>Rating: </strong>{{ $product->rating }}</li>
-                                                <li><strong>Rental Price: </strong>{{ $product->rentalPrice }}</li>
+                                                <li><strong>Rental Price: </strong>{{ $product->rentalPrice }} $</li>
                                             </ul>
                                         </div>
                                         <div class="modal-footer">
@@ -88,9 +88,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href={{ $product->trailerURL }} target="_blank"
-                               class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
+                            <a href="#" data-target="{{ '#modalTrailer'.$loop->iteration }}"
+                               class="btn btn-primary btn-md" data-toggle="modal">Trailer
+                                <i class="fas fa-play ml-2"></i>
                             </a>
+                            <!--Trailer Modal HTML -->
+                            <div id="{{ 'modalTrailer'.$loop->iteration }}" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">{{ $product->title }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body-video">
+                                            <div class="embed-responsive embed-responsive-16by9">
+                                                <iframe id="trailer" class="embed-responsive-item" width="900 px" height="500 px" src="{{ $product->trailerURL }}" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="close btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Trailer Modal HTML-->
                             <form action="{{ route('shopping-cart-store') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id" value="{{ $product->id }}">
@@ -118,6 +139,35 @@
     <footer class="page-footer text-center font-small darken-2 mt-4 wow fadeIn">
         <hr class="my-4">
     </footer>
+
+    <!-- use for modal  -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script>jQuery(document).ready(function($) {
+            $(function(){
+                //Snag the URL of the iframe so we can use it later
+                var url = $('.modal-body-video iframe').attr('src');
+
+                $('.close').click(function() {
+                    $('.modal-body-video').hide();
+                    $('.modal-body-video iframe').attr('src', '');
+                });
+
+                $('.close').click(function() {
+                    $('.modal-body-video').show();
+                    $('.modal-body-video iframe').attr('src', url);
+                });
+            });
+        });
+    </script>
+
     <!-- JQuery -->
     <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"

@@ -54,24 +54,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect" href="{{ route('categories') }}"
-                           target="_blank">Categories</a>
+                        <a class="nav-link waves-effect" href="{{ route('categories') }}">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect" href="{{ route('all-products') }}" target="_blank">Products</a>
+                        <a class="nav-link waves-effect" href="{{ route('all-products') }}">Products</a>
                     </li>
                 </ul>
             </div>
             @auth
                 <ul class="navbar-nav nav-flex-icons">
                     <li class="nav-item">
-                        <a href="{{ route('shopping-cart') }}" class="nav-link waves-effect" target="_blank">
+                        <a href="{{ route('shopping-cart') }}" class="nav-link waves-effect">
                             Cart
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link waves-effect" target="_blank">
-                        <a href="{{ route('profile') }}" class="nav-link waves-effect" target="_blank">
+                        <a href="#" class="nav-link waves-effect">
+                        <a href="{{ route('profile') }}" class="nav-link waves-effect">
                             {{ auth()->user()->name }}
                         </a>
                     </li>
