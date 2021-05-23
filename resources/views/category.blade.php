@@ -10,7 +10,7 @@
                     <div class="row">
                         @foreach($products as $product)
                             <div class="col-lg-4">
-                                <img src="{{ asset('img/'.$product->video->photoURL) }}" class="img-thumbnail">
+                                <img src="{{ asset('img/'.$product->video->photoURL) }}" class="banner">
                                 <h3><a href="{{ route('product', ['category' => $category[0]->name, 'product' => $product->video->title]) }}" class="nav-link">{{ $product->video->title }} </a></h3>
                             </div>
                         @endforeach

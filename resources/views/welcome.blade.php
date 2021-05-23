@@ -10,11 +10,18 @@
 
                 <!-- Content -->
                 <div class="card-body text-white text-center py-1 px-1 my-1" id="slider">
-                    @foreach($products as $product)
-                        <div>
-                            <img src="{{ asset('img/'.$product->photoURL) }}" class="banner">
-                        </div>
-                    @endforeach
+                    <div>
+                        <img src="{{ asset('img/a_nightmare_on_elm_street_banner.jpg') }}" class="banner">
+                    </div>
+                    <div>
+                        <img src="{{ asset('img/avengers_banner.jpg') }}" class="banner">
+                    </div>
+                    <div>
+                        <img src="{{ asset('img/black_panther_banner.jpg') }}" class="banner">
+                    </div>
+                    <div>
+                        <img src="{{ asset('img/star_wars_th_force_awakens_banner.jpg') }}" class="banner">
+                    </div>
                 </div>
                     <!-- Content -->
             </section>
@@ -118,6 +125,17 @@
     <footer class="page-footer text-center font-small darken-2 mt-4 wow fadeIn">
         <hr class="my-4">
     </footer>
+
+    <!-- use for modal  -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <!-- JQuery -->
     <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -135,5 +153,6 @@
             });
         });
     </script>
+
 
 @endsection
