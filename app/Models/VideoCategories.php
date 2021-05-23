@@ -11,6 +11,9 @@ class VideoCategories extends Model
 
     protected $table = 'video_categories';
 
+    protected $fillable = ['video_id', 'category_id'];
+
+
     public function video() {
         return $this->belongsTo('App\Models\Video');
     }

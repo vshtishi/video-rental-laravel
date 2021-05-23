@@ -22,6 +22,9 @@ Route::get('/', [App\Http\Controllers\ProductsController::class, 'home'])->name(
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    Route::get('/create', [App\Http\Controllers\CreateController::class, 'index'])->name('create');
+    Route::post('/create',[App\Http\Controllers\CreateController::class, 'add'])->name('create-post');
 });
 
 Auth::routes();
@@ -31,10 +34,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile-update');
 
-
-Route::get('/create', function () {
-    return view('create');
-})->name('create');
 
 Route::get('/categories', [\App\Http\Controllers\CategoriesController::class, 'index'])->name('categories');
 Route::get('/all-products', [App\Http\Controllers\ProductsController::class, 'index'])->name('all-products');
@@ -48,6 +47,9 @@ Route::get('/checkout',[App\Http\Controllers\CheckoutController::class, 'index']
 Route::post('/checkout',[App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout-store');
 Route::get('/thankyou',[App\Http\Controllers\ConfirmationController::class, 'index'])->name('confirmation');
 
+Route::get('/movie',function(){
+    return view('video');
+})->name('movie');
 
 Route::get('/categories/{category}', [\App\Http\Controllers\CategoriesController::class, 'category'])->name('category');
 Route::get('/categories/{category}/{product}', [App\Http\Controllers\ProductsController::class, 'product'])->name('product');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,17 @@ class ProfileController extends Controller
         $user = Auth::user();
         $uid = Auth::id();
         $purchases = Order::with('video')->where('user_id', $uid)->get();
+        //For illustration purposes
+        if(count($purchases) > 0)
+          $purchases[0]->dueDate = '2021-05-23';
+
+
+        foreach($purchases as $purchase){
+            $start_date = Carbon::now();
+            $end_date= Carbon::parse($purchase->dueDate);
+            $difference = $start_date->diff($end_date)->days;
+            $purchase->expiration = $difference;
+        }
 
         return view('user-profile', compact('user', 'purchases'));
     }
