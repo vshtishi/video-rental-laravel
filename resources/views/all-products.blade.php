@@ -19,7 +19,7 @@
                             <div class="col-lg-5 col-xl-4 mb-4">
                                 <!--Featured image-->
                                 <div class="view overlay rounded z-depth-1">
-                                    <img src="{{ asset('img/video_rental_banner.jpg') }}" class="img-fluid"
+                                    <img src="{{ asset('img/'.$product->photoURL) }}" class="banner"
                                          alt="">
                                     <a href="#" target="_blank">
                                         <div class="mask rgba-white-slight"></div>
@@ -34,12 +34,12 @@
                                 </h3>
                                 <!--DETAILS BUTTON-->
                                 <p class="grey-text">
-                                    <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal2">Details
+                                    <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="{{ '#modal'.$loop->iteration }}">Details
                                         <i class="fas fa-info-circle ml-1"></i>
                                     </a>
                                 </p>
                                 <!-- Modal -->
-                                <div class="modal fade" id="modal2" role="dialog">
+                                <div class="modal fade" id="{{ 'modal'.$loop->iteration }}" role="dialog">
                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                         <!-- Modal content-->
                                         <div class="modal-content">
@@ -55,7 +55,7 @@
                                                     <li><strong>Year Of Release: </strong>{{ $product->yearOfRelease }}</li>
                                                     <li><strong>Runtime: </strong>{{ $product->runtime }}</li>
                                                     <li><strong>Rating: </strong>{{ $product->rating }}</li>
-                                                    <li><strong>Rental Price:</strong>{{ $product->rentalPrice }}</li>
+                                                    <li><strong>Rental Price: </strong>{{ $product->rentalPrice }}</li>
                                                 </ul>
                                             </div>
                                             <div class="modal-footer">
@@ -71,7 +71,7 @@
                                     {{ csrf_field() }}
                                     <input type="hidden" name="id" value="{{ $product->id }}">
                                     <input type="hidden" name="name" value="{{ $product->title }}">
-                                    <input type="hidden" name="price" value="{{ $product->rentalPrice }}">
+                                    <input type="hidden" name="price" value="{{ $product->rentalPrice }}"><br>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
                                     </button>
                                 </form>
@@ -80,8 +80,8 @@
                         </div>
                         <!--Grid row-->
                         <hr class="mb-5">
-        @endif
-        @endforeach
+                    @endif
+                @endforeach
 
                 <nav class="d-flex justify-content-center wow fadeIn mt-5">
                     <ul class="pagination pg-blue">

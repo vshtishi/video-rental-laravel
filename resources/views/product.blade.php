@@ -9,71 +9,50 @@
                 <div class="wow fadeIn mt-5 mb-5 h1">
                     <!--Section heading-->
                     <ul class="list-inline">
-                        <li class="list-inline-item"><a href="{{ route('category', ['action']) }}" class="link-dark text-reset">Action</a>/
+                        <li class="list-inline-item"><a href="{{ route('category', [$category]) }}" class="link-dark text-reset">{{ $category }}</a>/
                         </li>
-                        <li class="list-inline-item"><a href="#" class="link-dark text-reset">Action 1</a></li>
+                        <li class="list-inline-item"><a href="#" class="link-dark text-reset">{{ $video[0]->title }}</a></li>
                     </ul>
                 </div>
                 <!-- Heading & Description -->
                 <!--Grid row-->
                 <div class="row wow fadeIn">
-                    <!--Grid column-->
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                        <!--Featured image-->
-                        <div class="view overlay rounded z-depth-1-half">
-                            <div class="view overlay">
-                                <img src="{{ asset('img/img_.jpg') }}" class="banner">
+                    <div class="row wow fadeIn">
+                        <!--Grid column-->
+                        <div class="col-lg-5 col-xl-4 mb-4">
+                            <!--Featured image-->
+                            <div class="view overlay rounded z-depth-1-half">
+                                <div class="view overlay">
+                                    <img src="{{ asset('img/'.$video[0]->photoURL) }}" class="img-fluid">
 
-                            </div>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-                    <!--Grid column-->
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <!--DETAILS BUTTON-->
-                        <p class="grey-text">
-                            <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="#modal1">Details
-                                <i class="fas fa-info-circle ml-1"></i>
-                            </a>
-                        </p>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal1" role="dialog">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div>
-                                        <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
-                                        <h3 class="modal-title h3 ml-3 mt-5">Video</h3>
-                                        <hr>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6>Details:</h6>
-                                        <p> description description description description description description
-                                            description description description description description </p>
-                                        <p>description description description description description </p>
-                                        <ul>
-                                            <li>Year</li>
-                                            <li>Actors</li>
-                                            <li>....</li>
-                                            <li>....</li>
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!--DETAILS BUTTON-->
-                        <p><a href="#" target="_blank"
-                              class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
-                            </a>
-                        </p>
-                        <p>
-                            <a href="{{ route('shopping-cart') }}" target="_blank"
-                               class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
-                            </a>
-                        </p>
+                        <!--Grid column-->
+                        <!--Grid column-->
+                        <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+                            <h2>Description</h2><br>
+                            <p>{{ $video[0]->description }}</p>
+                            <ul>
+                                <li>Year : {{ $video[0]->yearOfRelease }}</li>
+                                <li>Runtime : {{ $video[0]->runtime }}</li>
+                                <li>Rating : {{ $video[0]->rating }}</li>
+                                <li>Rental Price : {{ $video[0]->rentalPrice }} $</li>
+                            </ul>
+                            <p><a href="{{ $video[0]->trailerURL }}" target="_blank"
+                                  class="btn btn-primary btn-md">Trailer <i
+                                        class="fas fa-play ml-2"></i>
+                                </a>
+                            </p>
+                            <form action="{{ route('shopping-cart-store') }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="id" value="{{ $video[0]->id }}">
+                                <input type="hidden" name="name" value="{{ $video[0]->title }}">
+                                <input type="hidden" name="price" value="{{ $video[0]->rentalPrice }}">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     <!--Grid column-->
                 </div>
