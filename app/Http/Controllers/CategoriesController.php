@@ -17,7 +17,7 @@ class CategoriesController extends Controller
 
     public function category($category) {
         $category = Categories::where('name', $category)->get();
-        $products = VideoCategories::with('video')->where('category_id', $category[0]->id)->get();
+        $products = VideoCategories::with('video')->where('category_id', $category[0]->id)->paginate(6);
 
         return view('category', compact('category', 'products'));
     }

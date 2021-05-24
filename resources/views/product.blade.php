@@ -39,17 +39,37 @@
                                 <li>Rating : {{ $video[0]->rating }}</li>
                                 <li>Rental Price : {{ $video[0]->rentalPrice }} $</li>
                             </ul>
-                            <p><a href="{{ $video[0]->trailerURL }}" target="_blank"
-                                  class="btn btn-primary btn-md">Trailer <i
-                                        class="fas fa-play ml-2"></i>
-                                </a>
-                            </p>
+                            <a href="#" data-target="#modalTrailer1"
+                               class="btn btn-primary btn-md" data-toggle="modal">Trailer
+                                <i class="fas fa-play ml-2"></i>
+                            </a>
+                            <!--Trailer Modal HTML -->
+                            <div id="modalTrailer1" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">{{ $video[0]->title }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body-video">
+                                            <div class="embed-responsive embed-responsive-16by9">
+                                                <iframe class="embed-responsive-item" width="900 px" height="500 px" src="{{ $video[0]->trailerURL }}" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="close btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Trailer Modal HTML-->
+
                             <form action="{{ route('shopping-cart-store') }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id" value="{{ $video[0]->id }}">
                                 <input type="hidden" name="name" value="{{ $video[0]->title }}">
                                 <input type="hidden" name="price" value="{{ $video[0]->rentalPrice }}">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
+                                <br><button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
                                 </button>
                             </form>
                         </div>
@@ -79,4 +99,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script>jQuery(document).ready(function($) {
+            $(function(){
+                //Snag the URL of the iframe so we can use it later
+                var url = $('.modal-body-video iframe').attr('src');
+
+                $('.close').click(function() {
+                    $('.modal-body-video').hide();
+                    $('.modal-body-video iframe').attr('src', '');
+                });
+
+                $('.close').click(function() {
+                    $('.modal-body-video').show();
+                    $('.modal-body-video iframe').attr('src', url);
+                });
+            });
+        });
+    </script>
 @endsection

@@ -55,7 +55,7 @@
                                                     <li><strong>Year Of Release: </strong>{{ $product->yearOfRelease }}</li>
                                                     <li><strong>Runtime: </strong>{{ $product->runtime }}</li>
                                                     <li><strong>Rating: </strong>{{ $product->rating }}</li>
-                                                    <li><strong>Rental Price: </strong>{{ $product->rentalPrice }}</li>
+                                                    <li><strong>Rental Price: </strong>{{ $product->rentalPrice }} $</li>
                                                 </ul>
                                             </div>
                                             <div class="modal-footer">
@@ -64,9 +64,30 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href={{ $product->trailerURL }} target="_blank"
-                                   class="btn btn-primary btn-md">Trailer <i class="fas fa-play ml-2"></i>
+                                <a href="#" data-target="{{ '#modalTrailer'.$loop->iteration }}"
+                                   class="btn btn-primary btn-md" data-toggle="modal">Trailer
+                                    <i class="fas fa-play ml-2"></i>
                                 </a>
+                                <!--Trailer Modal HTML -->
+                                <div id="{{ 'modalTrailer'.$loop->iteration }}" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">{{ $product->title }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body-video">
+                                                <div class="embed-responsive embed-responsive-16by9">
+                                                    <iframe class="embed-responsive-item" width="900 px" height="500 px" src="{{ $product->trailerURL }}" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="close btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Trailer Modal HTML-->
                                 <form action="{{ route('shopping-cart-store') }}" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="id" value="{{ $product->id }}">
@@ -83,40 +104,11 @@
                     @endif
                 @endforeach
 
+                <!--Pagination-->
                 <nav class="d-flex justify-content-center wow fadeIn mt-5">
-                    <ul class="pagination pg-blue">
-
-                        <!--Arrow left-->
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="product_page_2.html">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="product_page_2.html" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="d-flex justify-content-center">
+                        {!! $products->links() !!}
+                    </div>
                 </nav>
                 <!--Pagination-->
             </section>
@@ -143,4 +135,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script>jQuery(document).ready(function($) {
+            $(function(){
+                //Snag the URL of the iframe so we can use it later
+                var url = $('.modal-body-video iframe').attr('src');
+
+                $('.close').click(function() {
+                    $('.modal-body-video').hide();
+                    $('.modal-body-video iframe').attr('src', '');
+                });
+
+                $('.close').click(function() {
+                    $('.modal-body-video').show();
+                    $('.modal-body-video iframe').attr('src', url);
+                });
+            });
+        });
+    </script>
 @endsection

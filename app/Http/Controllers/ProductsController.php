@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class ProductsController extends Controller
 {
     public function index(){
 
-        $products = Video::all();
+        $products = Video::paginate(6);
 
         return view('all-products', compact('products'));
     }
