@@ -53,3 +53,6 @@ Route::get('/movie',function(){
 
 Route::get('/categories/{category}', [\App\Http\Controllers\CategoriesController::class, 'category'])->name('category');
 Route::get('/categories/{category}/{product}', [App\Http\Controllers\ProductsController::class, 'product'])->name('product');
+
+Route::get('/search', [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
+

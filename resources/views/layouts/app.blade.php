@@ -69,18 +69,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link waves-effect">
                         <a href="{{ route('profile') }}" class="nav-link waves-effect">
                             {{ auth()->user()->name }}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="dropdown-item" href="{{ route('logout') }}" class="nav-link waves-effect"
+                        <a  href="{{ route('logout') }}" class="nav-link waves-effect"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             Logout
                         </a>
-
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>

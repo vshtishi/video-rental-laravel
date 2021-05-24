@@ -1,6 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session()->has('success_message'))
+        <div class="alert alert-success">
+            {{ session()->get('success_message') }}
+        </div>
+    @endif
+
+    @if(count($errors) > 0)
+        <div class="alert alert-danger justify-content-center" style="width:300px;margin:auto;">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        <br>
+    @endif
+    <form action="{{ route('search') }}" method="GET">
+        <div class="row justify-content-center">
+            <div class="input-group col-12 col-md-10 col-lg-8">
+                <input class="form-control" type="text" name="query" id="query" value="{{ request()->input('query') }}" placeholder="Search">
+                <div class="input-group-append">
+                    <div class="input-group-text"><i class="fa fa-search"></i></div>
+                </div>
+            </div>
+        </div>
+    </form>
     <!--Main layout-->
     <main class="mt-5">
         <div class="container">

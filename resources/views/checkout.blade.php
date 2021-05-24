@@ -166,7 +166,7 @@
                             <div class="checkout-table-row">
                                 <div class="checkout-table-row-left">
                                     <a class="thumbnail pull-left" href="#"> <img class="media-object"
-                                                                                  src="https://www.cnet.com/a/img/soqWZZN3F4TLP33JL7bjeWnbtF0=/470x836/2021/01/05/c038963b-027d-40e5-a158-2d0d0617b4e3/black-widow-marvel-poster-crop.jpg"
+                                                                                  src="{{ asset('img/' . $item->model->photoURL) }}"
                                                                                   style="width: 120px; height: 120px;"> </a>
                                     <div class="checkout-item-details">
                                         <div class="checkout-table-item">{{ $item->model->title }}</div>
