@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Order;
+use Braintree\Gateway;
 use Carbon\Carbon;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
@@ -19,7 +20,15 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return view('checkout');
+        $gateway = new Gateway([
+            'environment' => config('services.braintree.environment'),
+            'merchantId' => config('services.braintree.merchantId'),
+            'publicKey' => config('services.braintree.publicKey'),
+            'privateKey' => config('services.braintree.privateKey')
+        ]);
+
+        $paypalToken = $gateway->ClientToken()->generate();
+        return view('checkout')->with('paypalToken', $paypalToken);
     }
 
     /**
@@ -121,5 +130,50 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function paypalCheckout(Request $request){
+
+        $gateway = new \Braintree\Gateway([
+            'environment' => config('services.braintree.environment'),
+            'merchantId' => config('services.braintree.merchantId'),
+            'publicKey' => config('services.braintree.publicKey'),
+            'privateKey' => config('services.braintree.privateKey')
+        ]);
+
+        $nonce = $request->payment_method_nonce;
+
+        $result = $gateway->transaction()->sale([
+            'amount' => Cart::total(),
+            'paymentMethodNonce' => $nonce,
+            'options' => [
+                'submitForSettlement' => true
+            ]
+        ]);
+
+        $transaction = $result->transaction;
+
+        if ($result->success) {
+           /* $order = $this->addToOrdersTablesPaypal(
+                $transaction->paypal['payerEmail'],
+                $transaction->paypal['payerFirstName'].' '.$transaction->paypal['payerLastName'],
+                null
+            );*/
+
+           // Mail::send(new OrderPlaced($order));
+
+
+            Cart::instance('default')->destroy();
+
+            return redirect()->route('confirmation');
+        } else {
+           /* $order = $this->addToOrdersTablesPaypal(
+                $transaction->paypal['payerEmail'],
+                $transaction->paypal['payerFirstName'].' '.$transaction->paypal['payerLastName'],
+                $result->message
+            );*/
+
+            return back()->withErrors('An error occurred with the message: '.$result->message);
+        }
     }
 }
