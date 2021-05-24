@@ -17,4 +17,8 @@ class VideoCategories extends Model
     public function video() {
         return $this->belongsTo('App\Models\Video');
     }
+
+    public function category() {
+        return $this->belongsTo('App\Models\Categories');
+    }
 }
