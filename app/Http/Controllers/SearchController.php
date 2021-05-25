@@ -13,7 +13,10 @@ class SearchController extends Controller
             'query' => 'required'
         ]);
         $query = $request->input('query');
-        $products = Video::where('title', 'like', "%$query%")->paginate(6);
-        return view('search')->with('products', $products);
+        $products = Video::where('title', 'like', "%$query%")->
+                           orWhere('description', 'like', "%$query%")->paginate(6);
+
+        return view('search')->with(['products' => $products,
+            'query' => $query]);
     }
 }

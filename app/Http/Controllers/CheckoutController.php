@@ -20,6 +20,8 @@ class CheckoutController extends Controller
      */
     public function index()
     {
+        if(!auth()->check())
+            return redirect('/');
         $gateway = new Gateway([
             'environment' => config('services.braintree.environment'),
             'merchantId' => config('services.braintree.merchantId'),
@@ -132,7 +134,8 @@ class CheckoutController extends Controller
         //
     }
 
-    public function paypalCheckout(Request $request){
+    public function paypalCheckout(Request $request)
+    {
 
         $gateway = new \Braintree\Gateway([
             'environment' => config('services.braintree.environment'),
@@ -154,26 +157,24 @@ class CheckoutController extends Controller
         $transaction = $result->transaction;
 
         if ($result->success) {
-           /* $order = $this->addToOrdersTablesPaypal(
-                $transaction->paypal['payerEmail'],
-                $transaction->paypal['payerFirstName'].' '.$transaction->paypal['payerLastName'],
-                null
-            );*/
+            $date = Carbon::now();
+            $purchase_date = $date->toDateString();
+            $due_date = $date->addMonth(1)->toDateString();
 
-           // Mail::send(new OrderPlaced($order));
-
+            foreach (Cart::content() as $item) {
+                $order = Order::create([
+                    'user_id' => auth()->user() ? auth()->user()->id : null,
+                    'dateOfPurchase' => $purchase_date,
+                    'dueDate' => $due_date,
+                    'video_id' => $item->model->id,
+                ]);
+            }
 
             Cart::instance('default')->destroy();
+            return redirect()->route('confirmation')->with('success_message', 'Thank you! Your payment has been successfully accepted!');
 
-            return redirect()->route('confirmation');
         } else {
-           /* $order = $this->addToOrdersTablesPaypal(
-                $transaction->paypal['payerEmail'],
-                $transaction->paypal['payerFirstName'].' '.$transaction->paypal['payerLastName'],
-                $result->message
-            );*/
-
-            return back()->withErrors('An error occurred with the message: '.$result->message);
+            return back()->withErrors('An error occurred with the message: ' . $result->message);
         }
     }
 }

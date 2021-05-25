@@ -26,7 +26,12 @@ class ProfileController extends Controller
             $start_date = Carbon::now();
             $end_date= Carbon::parse($purchase->dueDate);
             $difference = $start_date->diff($end_date)->days;
-            $purchase->expiration = $difference;
+            if($start_date < $end_date){
+                $purchase->expiration = $difference;
+            }
+            else{
+                $purchase->expiration = $difference * (-1);
+            }
         }
 
         return view('user-profile', compact('user', 'purchases'));

@@ -1,4 +1,12 @@
 @extends('layouts.app')
+@section('head_scripts')
+    <style>
+        mark{
+            background: rgba(255, 255, 0, 0.5);
+            color: black;
+        }
+    </style>
+@endsection
 @section('content')
     <!--Main layout-->
     <main>
@@ -8,7 +16,7 @@
                 <!-- Heading & Description -->
                 <div class="wow fadeIn">
                     <!--Section heading-->
-                    <h1 class="h1 text-left mb-5">All Search Results</h1>
+                    <h1 class="h1 text-left mb-5" id="{{ $query }}">All Search Results</h1>
                     <div class="text-left alert alert-secondary">{{ $products->total() . ' result(s) found:' }}</div>
                 </div>
                 <!-- Heading & Description -->
@@ -30,7 +38,7 @@
                             <!--Grid column-->
                             <!--Grid column-->
                             <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                                <h3 class="mb-3 font-weight-bold dark-grey-text">
+                                <h3 class="mb-3 font-weight-bold dark-grey-text target">
                                     <strong>{{ $product->title }}</strong>
                                 </h3>
                                 <!--DETAILS BUTTON-->
@@ -46,12 +54,12 @@
                                         <div class="modal-content">
                                             <div>
                                                 <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
-                                                <h3 class="modal-title h3 ml-3 mt-5">{{ $product->title }}</h3>
+                                                <h3 class="modal-title h3 ml-3 mt-5 target">{{ $product->title }}</h3>
                                                 <hr>
                                             </div>
                                             <div class="modal-body">
                                                 <h6>Details:</h6>
-                                                <p>{{ $product->description }} </p>
+                                                <p class="target">{{ $product->description }} </p>
                                                 <ul>
                                                     <li><strong>Year Of Release: </strong>{{ $product->yearOfRelease }}</li>
                                                     <li><strong>Runtime: </strong>{{ $product->runtime }}</li>
@@ -154,5 +162,12 @@
                 });
             });
         });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js"></script>
+    <script>
+        query = $('h1:first').attr('id');
+        console.log(query);
+        $(".target").mark(query);
+
     </script>
 @endsection
