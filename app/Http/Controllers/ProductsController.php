@@ -11,7 +11,7 @@ class ProductsController extends Controller
 {
     public function index(){
 
-        $products = Video::paginate(6);
+        $products = Video::orderBy('title')->paginate(6);
 
         return view('all-products', compact('products'));
     }
@@ -23,7 +23,7 @@ class ProductsController extends Controller
     }
 
     public function home() {
-        $products = Video::all()->take(-3);
+        $products = Video::all()->take(3);
 
         return view('welcome', compact('products'));
     }
