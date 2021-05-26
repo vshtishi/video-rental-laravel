@@ -27,19 +27,17 @@
             </thead>
             <tbody>
             @foreach(Cart::content() as $item)
-{{--                @dd($item->model)--}}
-                @php
-                    //$video_id = (int) $item->id;
-                    $categories = \App\Models\VideoCategories::with('category')->where('video_id', $item->model->id)->get();
-                @endphp
                 <tr>
-                    <td class="col-sm-8 col-md-6">
+                    <td class="col-sm-8">
                         <div class="media">
                             <a class="thumbnail pull-left" href="#"> <img class="media-object"
                                                                           src="{{ asset('img/' . $item->model->photoURL) }}"
                                                                           style="width: 200px; height: 300px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="#">{{ $item->model->title }}</a></h4>
+                                @php
+                                    $categories = \App\Models\VideoCategories::with('category')->where('video_id', $item->model->id)->get();
+                                @endphp
                                 <h5 class="media-heading"> Categories:
                                     @foreach($categories as $category)
                                         <a href="{{ route('category', [$category->category->name]) }}">{{ $category->category->name }}<br></a>
