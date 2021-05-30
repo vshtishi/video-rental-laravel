@@ -3,6 +3,21 @@
     <!--Main layout-->
     <main>
         <div class="container">
+            @if(session()->has('success_message'))
+                <div class="alert alert-success">
+                    {{ session()->get('success_message') }}
+                </div>
+            @endif
+
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+        @endif
             <!--Section: Cards-->
             <section class="ml-5">
                 <!-- Heading & Description -->
@@ -34,7 +49,8 @@
                                 </h3>
                                 <!--DETAILS BUTTON-->
                                 <p class="grey-text">
-                                    <a href="#" target="_blank" class="btn btn-light" data-toggle="modal" data-target="{{ '#modal'.$loop->iteration }}">Details
+                                    <a href="#" target="_blank" class="btn btn-light" data-toggle="modal"
+                                       data-target="{{ '#modal'.$loop->iteration }}">Details
                                         <i class="fas fa-info-circle ml-1"></i>
                                     </a>
                                 </p>
@@ -44,7 +60,8 @@
                                         <!-- Modal content-->
                                         <div class="modal-content">
                                             <div>
-                                                <button type="button" class="close mr-2" data-dismiss="modal">&times;</button>
+                                                <button type="button" class="close mr-2" data-dismiss="modal">&times;
+                                                </button>
                                                 <h3 class="modal-title h3 ml-3 mt-5">{{ $product->title }}</h3>
                                                 <hr>
                                             </div>
@@ -52,14 +69,18 @@
                                                 <h6>Details:</h6>
                                                 <p>{{ $product->description }} </p>
                                                 <ul>
-                                                    <li><strong>Year Of Release: </strong>{{ $product->yearOfRelease }}</li>
+                                                    <li><strong>Year Of Release: </strong>{{ $product->yearOfRelease }}
+                                                    </li>
                                                     <li><strong>Runtime: </strong>{{ $product->runtime }}</li>
                                                     <li><strong>Rating: </strong>{{ $product->rating }}</li>
-                                                    <li><strong>Rental Price: </strong>{{ $product->rentalPrice }} $</li>
+                                                    <li><strong>Rental Price: </strong>{{ $product->rentalPrice }} $
+                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                    Close
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -74,15 +95,19 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">{{ $product->title }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
                                             </div>
                                             <div class="modal-body-video">
                                                 <div class="embed-responsive embed-responsive-16by9">
-                                                    <iframe class="embed-responsive-item" width="900 px" height="500 px" src="{{ $product->trailerURL }}" allowfullscreen></iframe>
+                                                    <iframe class="embed-responsive-item" width="900 px" height="500 px"
+                                                            src="{{ $product->trailerURL }}" allowfullscreen></iframe>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="close btn btn-danger" data-dismiss="modal">Close</button>
+                                                <button type="button" class="close btn btn-danger" data-dismiss="modal">
+                                                    Close
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -93,18 +118,41 @@
                                     <input type="hidden" name="id" value="{{ $product->id }}">
                                     <input type="hidden" name="name" value="{{ $product->title }}">
                                     <input type="hidden" name="price" value="{{ $product->rentalPrice }}"><br>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i> Add to Cart
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-shopping-cart mr-1"></i> Add to Cart
                                     </button>
                                 </form>
+                                @auth
+                                    @if (Auth::user()->hasRole('admin'))
+                                        <form action="{{ route('delete-product') }}" method="POST" id="product">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <br>
+                                            <button type="submit" class="btn btn-danger ml-3" id="submit">Delete</button>
+                                        </form>
+                                    @endif
+                                @endauth
+                                @auth
+                                    @if (Auth::user()->hasRole('admin'))
+                                        <br>
+                                        <a href ={{ route('modify', ['id' => $product->id] ) }}>
+                                            <button type="submit" class="btn btn-primary ml-3" id="submit">
+
+                                                    Update
+                                            </button>
+                                        </a>
+
+                                    @endif
+                                @endauth
                             </div>
                             <!--Grid column-->
                         </div>
                         <!--Grid row-->
                         <hr class="mb-5">
-                    @endif
-                @endforeach
+                @endif
+            @endforeach
 
-                <!--Pagination-->
+            <!--Pagination-->
                 <nav class="d-flex justify-content-center wow fadeIn mt-5">
                     <div class="d-flex justify-content-center">
                         {!! $products->links() !!}
@@ -135,17 +183,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-    <script>jQuery(document).ready(function($) {
-            $(function(){
+    <script>jQuery(document).ready(function ($) {
+            $(function () {
                 //Snag the URL of the iframe so we can use it later
                 var url = $('.modal-body-video iframe').attr('src');
 
-                $('.close').click(function() {
+                $('.close').click(function () {
                     $('.modal-body-video').hide();
                     $('.modal-body-video iframe').attr('src', '');
                 });
 
-                $('.close').click(function() {
+                $('.close').click(function () {
                     $('.modal-body-video').show();
                     $('.modal-body-video iframe').attr('src', url);
                 });

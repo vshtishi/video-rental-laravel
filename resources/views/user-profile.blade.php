@@ -1,12 +1,7 @@
 @extends('layouts.app')
 
 @section('head_scripts')
-    <script>
-        var loadFile = function (event) {
-            var image = document.getElementById('output');
-            image.src = URL.createObjectURL(event.target.files[0]);
-        };
-    </script>
+
 @endsection
 @section('content')
     <div class="container light-style flex-grow-1 container-p-y">
@@ -48,21 +43,7 @@
                     <div class="col-md-9">
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="account-general">
-
-                                <div class="card-body media align-items-center">
-
-                                    <img id="output"
-                                         src="https://cdn.pixabay.com/photo/2014/04/02/14/10/female-306407_960_720.png" alt=""
-                                         class="d-block ui-w-80 img-fluid">
-                                    <div class="media-body ml-4">
-                                        <label for="file" class="btn btn-outline-primary">
-                                            Upload new photo
-                                            <input type="file" class="account-settings-fileinput" accept="image/*" id="file"
-                                                   onchange="loadFile(event)" style="display: none;">
-                                        </label>
-                                        <div class="text-light small mt-1">JPG, GIF or PNG</div>
-                                    </div>
-                                </div>
+                                
                                 <hr class="border-light m-0">
                                 <div class="card-body">
                                     <div class="form-group">

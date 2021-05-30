@@ -24,7 +24,9 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
     Route::get('/create', [App\Http\Controllers\CreateController::class, 'index'])->name('create');
-    Route::post('/create',[App\Http\Controllers\CreateController::class, 'add'])->name('create-post');
+    Route::post('/create', [App\Http\Controllers\CreateController::class, 'add'])->name('create-post');
+    Route::get('/modify/{id}', [App\Http\Controllers\ModifyController::class, 'index'])->name('modify');
+    Route::post('/modify/{id}', [App\Http\Controllers\ModifyController::class, 'update'])->name('modify-post');
 });
 
 Auth::routes();
@@ -43,12 +45,12 @@ Route::post('/shopping-cart', [App\Http\Controllers\CartController::class, 'stor
 Route::delete('/shopping-cart/{product}', [App\Http\Controllers\CartController::class, 'destroy'])->name('shopping-cart-destroy');
 
 
-Route::get('/checkout',[App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
-Route::post('/checkout',[App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout-store');
-Route::post('/paypayl-checkout',[App\Http\Controllers\CheckoutController::class, 'paypalCheckout'])->name('paypal-checkout');
-Route::get('/thankyou',[App\Http\Controllers\ConfirmationController::class, 'index'])->name('confirmation');
+Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout-store');
+Route::post('/paypayl-checkout', [App\Http\Controllers\CheckoutController::class, 'paypalCheckout'])->name('paypal-checkout');
+Route::get('/thankyou', [App\Http\Controllers\ConfirmationController::class, 'index'])->name('confirmation');
 
-Route::get('/movie',function(){
+Route::get('/movie', function () {
     return view('video');
 })->name('movie');
 
@@ -56,4 +58,6 @@ Route::get('/categories/{category}', [\App\Http\Controllers\CategoriesController
 Route::get('/categories/{category}/{product}', [App\Http\Controllers\ProductsController::class, 'product'])->name('product');
 
 Route::get('/search', [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
+Route::post('/delete-product', [App\Http\Controllers\DeleteController::class, 'remove'])->name('delete-product');
+
 
