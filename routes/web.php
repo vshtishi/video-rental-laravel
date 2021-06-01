@@ -60,4 +60,7 @@ Route::get('/categories/{category}/{product}', [App\Http\Controllers\ProductsCon
 Route::get('/search', [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
 Route::post('/delete-product', [App\Http\Controllers\DeleteController::class, 'remove'])->name('delete-product');
 
+Route::get('/ajax', [App\Http\Controllers\AjaxController::class, 'movies']);
+
+
 
