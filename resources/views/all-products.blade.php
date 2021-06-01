@@ -23,8 +23,20 @@
                 <!-- Heading & Description -->
                 <div class="wow fadeIn">
                     <!--Section heading-->
+                    <div class='btn-toolbar pull-right'>
+                        @auth
+                            @if (Auth::user()->hasRole('admin'))
+                                <a href ={{ route('create') }}>
+                                    <button type="submit" class="btn btn-primary ml-3 d-flex justify-content-end" id="submit">
+                                        Create
+                                    </button>
+                                </a>
+                            @endif
+                        @endauth
+                    </div>
                     <h1 class="h1 text-left mb-5">All Videos</h1>
                 </div>
+
                 <!-- Heading & Description -->
                 @foreach($products as $product)
 

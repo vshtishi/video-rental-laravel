@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/ajax', [App\Http\Controllers\AjaxController::class, 'movies']);
+
 Route::get('/', [App\Http\Controllers\ProductsController::class, 'home'])->name('home-page');
 
 Route::group(['prefix' => 'admin'], function () {
@@ -54,13 +56,11 @@ Route::get('/movie', function () {
     return view('video');
 })->name('movie');
 
+Route::get('/{product}', [App\Http\Controllers\ProductsController::class, 'product'])->name('product');
 Route::get('/categories/{category}', [\App\Http\Controllers\CategoriesController::class, 'category'])->name('category');
-Route::get('/categories/{category}/{product}', [App\Http\Controllers\ProductsController::class, 'product'])->name('product');
 
 Route::get('/search', [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
 Route::post('/delete-product', [App\Http\Controllers\DeleteController::class, 'remove'])->name('delete-product');
-
-Route::get('/ajax', [App\Http\Controllers\AjaxController::class, 'movies']);
 
 
 

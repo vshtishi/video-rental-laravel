@@ -9,8 +9,6 @@
                 <div class="wow fadeIn mt-5 mb-5 h1">
                     <!--Section heading-->
                     <ul class="list-inline">
-                        <li class="list-inline-item"><a href="{{ route('category', [$category]) }}" class="link-dark text-reset">{{ $category }}</a>/
-                        </li>
                         <li class="list-inline-item"><a href="#" class="link-dark text-reset">{{ $video[0]->title }}</a></li>
                     </ul>
                 </div>
@@ -34,6 +32,15 @@
                             <h2>Description</h2><br>
                             <p>{{ $video[0]->description }}</p>
                             <ul>
+                                <li>Categories:
+                                    @foreach($categories as $category)
+                                        @if($loop->last)
+                                            {{ $category->category->name }}
+                                        @else
+                                            {{ $category->category->name }},
+                                        @endif
+                                    @endforeach
+                                </li>
                                 <li>Year : {{ $video[0]->yearOfRelease }}</li>
                                 <li>Runtime : {{ $video[0]->runtime }}</li>
                                 <li>Rating : {{ $video[0]->rating }}</li>
