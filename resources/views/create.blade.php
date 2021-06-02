@@ -18,7 +18,7 @@
                 </div>
             @endif
             <h2 class="text-left card-title mb-5">Add new product</h2>
-            <form action="{{ route('create-post') }}" method="POST" id="new-product">
+            <form action="{{ route('create-post') }}" method="POST" id="new-product" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="row flex-wrap">
                     <div class="col-sm-6 mb-2">
