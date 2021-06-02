@@ -51,6 +51,8 @@ Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout-store');
 Route::post('/paypayl-checkout', [App\Http\Controllers\CheckoutController::class, 'paypalCheckout'])->name('paypal-checkout');
 Route::get('/thankyou', [App\Http\Controllers\ConfirmationController::class, 'index'])->name('confirmation');
+Route::get('/search', [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
+Route::post('/delete-product', [App\Http\Controllers\DeleteController::class, 'remove'])->name('delete-product');
 
 Route::get('/movie', function () {
     return view('video');
@@ -59,8 +61,7 @@ Route::get('/movie', function () {
 Route::get('/{product}', [App\Http\Controllers\ProductsController::class, 'product'])->name('product');
 Route::get('/categories/{category}', [\App\Http\Controllers\CategoriesController::class, 'category'])->name('category');
 
-Route::get('/search', [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
-Route::post('/delete-product', [App\Http\Controllers\DeleteController::class, 'remove'])->name('delete-product');
+
 
 
 
