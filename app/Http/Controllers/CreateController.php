@@ -32,7 +32,7 @@ class CreateController extends Controller
         $video = new Video();
 
         $imageName = $request->file('image')->getClientOriginalName();
-//        dd($imageName);
+
         $request->image->move(public_path('img'), $imageName);
 
         $video->title = $request->title;
